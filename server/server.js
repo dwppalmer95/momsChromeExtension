@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
   for (let i = 0; i < fileNames.length; i++) {
     const fileName = fileNames[i];
     if (fileName.match(regex)) {
-      imgPath = path.resolve(fileName);
+      imgPath = path.join(__dirname, `../client/assets/nature/${fileName}`);
       console.log(imgPath);
       break;
     }

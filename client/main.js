@@ -1,7 +1,9 @@
 window.addEventListener('DOMContentLoaded', async (event) => {
-  fetch('http://localhost:3000/', { mode: 'no-cors'})
-    .then(res => console.log(res))
-    // .then(data => console.log(data))
-  // const imageContainer = document.getElementById("bg");
-  // imageContainer.style.backgroundImage = "url('assets/3.jpg')";
+  const imageContainer = document.getElementById("bg");
+  fetch('http://localhost:3000/')
+    .then(res => res.json())
+    .then(data => {
+      console.log(data.imgPath);
+      imageContainer.style.backgroundImage = `url('${data.imgPath}')`;
+    });
 });
