@@ -1,9 +1,14 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const helmet = require('helmet');
+const compression = require('compression');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+app.use(compression());
+app.use(helmet());
 
 app.get('/', (req, res) => {
   const imgDir = path.join(__dirname, '../server/data/nature')
