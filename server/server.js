@@ -6,7 +6,8 @@ const app = express();
 const PORT = 3000;
 
 app.get('/', (req, res) => {
-  const fileNames = fs.readdirSync(path.join(__dirname, '../client/assets/nature'));
+  const imgDir = path.join(__dirname, '../server/data/nature')
+  const fileNames = fs.readdirSync(imgDir);
   const randomInteger = Math.floor(Math.random() * fileNames.length);
   const pattern = `^${randomInteger}_.*`;
   const regex = new RegExp(pattern);
@@ -14,7 +15,7 @@ app.get('/', (req, res) => {
   for (let i = 0; i < fileNames.length; i++) {
     const fileName = fileNames[i];
     if (fileName.match(regex)) {
-      imgPath = path.join(__dirname, `../client/assets/nature/${fileName}`);
+      imgPath = path.join(imgDir, fileName);
       console.log(imgPath);
       break;
     }
@@ -22,7 +23,7 @@ app.get('/', (req, res) => {
   res.set({
     'Access-Control-Allow-Origin': 'chrome-extension://jegelamlcopnofagkldfnmpebeecdcch'
   })
-  res.send({ imgPath });
+  res.sendFile(imgPath);
 });
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
